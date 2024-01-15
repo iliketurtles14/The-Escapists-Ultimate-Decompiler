@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>The Escapists Ultimate Decompiler</AssemblyName>
+    <ApplicationIcon>The Escapists Cool Icon.ico</ApplicationIcon>
+    <Trimming></Trimming>
+    <SignAssembly>False</SignAssembly>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="The Escapists Cool Icon.ico" />
+  </ItemGroup>
+
+</Project>
