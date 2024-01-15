@@ -40,61 +40,50 @@ namespace decomp
                         Environment.Exit(0);
                         break;
                     case "1":
-                        Console.WriteLine("\nEnter the file location: ");
+                        Console.Write("\nEnter the file location: ");
                         filePath = Console.ReadLine();
-                        if (System.IO.File.Exists(filePath))
-                        {
-                            return;
-                        }
-                        else
+                        if (!System.IO.File.Exists(filePath))
                         {
                             Console.WriteLine("\nFile not found or invalid path.");
                             Console.ReadLine();
-                        }                
+                            return;
+                        }
                         fileBytes = System.IO.File.ReadAllBytes(filePath);
                         BlowfishCompat decryptionBlowfish = new BlowfishCompat(key);
                         decryptedData = decryptionBlowfish.Decrypt(fileBytes);
                         decryptedString = Encoding.ASCII.GetString(decryptedData);
-                        Console.Write("\n\nEnter the file location to save the decrypted data: ");
+                        Console.Write("\nEnter the file location to save the decrypted data: ");
                         saveFilePath = Console.ReadLine();
                         System.IO.File.WriteAllText(saveFilePath, decryptedString);
-                        Console.WriteLine("\nData motified succesfully!");
+                        Console.WriteLine("\nData modified successfully!");
                         Console.ReadLine();
                         break;
                     case "2":
-
-
-                        Console.Write("\n\nEnter the file location: ");
+                        Console.Write("\nEnter the file location: ");
                         filePath = Console.ReadLine();
-                        if (System.IO.File.Exists(filePath))
-                        {
-                            return;
-                        }
-                        else
+                        if (!System.IO.File.Exists(filePath))
                         {
                             Console.WriteLine("\nFile not found or invalid path.");
+                            Console.ReadLine();
+                            return;
                         }
                         inputBytes = Encoding.ASCII.GetBytes(System.IO.File.ReadAllText(filePath));
                         BlowfishCompat encryptionBlowfish = new BlowfishCompat(key);
                         encryptedData = encryptionBlowfish.Encrypt(inputBytes);
-                        Console.WriteLine("\nEnter the file location to save the encrypted data: ");
+                        Console.Write("\nEnter the file location to save the encrypted data: ");
                         saveFilePath = Console.ReadLine();
-                        Console.ReadLine();
                         System.IO.File.WriteAllBytes(saveFilePath, encryptedData);
-                        Console.WriteLine("\nData motified succesfully!");
+                        Console.WriteLine("\nData modified successfully!");
                         Console.ReadLine();
                         break;
                     case "3":
                         Console.Write("\n\nEnter the file location: ");
                         filePath = Console.ReadLine();
-                        if (File.Exists(filePath))
-                        {
-                            return;
-                        }
-                        else
+                        if (!System.IO.File.Exists(filePath))
                         {
                             Console.WriteLine("\nFile not found or invalid path.");
                             Console.ReadLine();
+                            return;
                         }
                         lines = File.ReadAllLines(filePath);
                         for (int i = 0; i < lines.Length; i++)
@@ -106,45 +95,62 @@ namespace decomp
                                 break;
                             }
                         }
-                        Console.WriteLine("\nEnter the file location to save the .cmap file: ");
+                        Console.Write("\nEnter the file location to save the .cmap file: ");
                         saveFilePath = Console.ReadLine();
                         File.WriteAllLines(saveFilePath, lines);
-                        Console.WriteLine("\nData motified succesfully!");
+                        Console.WriteLine("\nData modified successfully!");
                         Console.ReadLine();
                         break;
                     case "4":
                         Console.Clear();
-                        Console.Write("What map do you want this to be in place of?\n0. Tutorial\n1. Center Perks\n2. Stalag Flucht\n3. Shankton State Pen\n4. Jungle Compound\n5. San Pancho\n6. HMP Irongate" +
+                        Console.WriteLine("What map do you want this to be in place of?\n0. Tutorial\n1. Center Perks\n2. Stalag Flucht\n3. Shankton State Pen\n4. Jungle Compound\n5. San Pancho\n6. HMP Irongate" +
                             "\n7. Jingle Cells\n8. Banned Camp\n9. London Tower\n10. Paris Central Pen\n11. Santa's Sweatshop\n12. Duct Tapes are Forever\n13. Escape Team\n14. Alcatraz\n15. Fhurst Peak Correctional" +
                             "\n16. Camp Epsilon\n17. Fort Bamford");
                         userOption2 = Console.ReadLine();
                         switch (userOption2)
                         {
                             case "0":
-                                Console.WriteLine("Select the layer that is okay to remove:\n0. Vents\n1. Roof\n2. Underground\n");
+                                Console.WriteLine("\nSelect the layer that is okay to remove:\n0. Vents\n1. Roof\n2. Underground");
                                 userOption3 = Console.ReadLine();
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 87009;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
-
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 87009;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 87009;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -158,24 +164,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 87612;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 87612;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 87612;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -189,24 +213,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 84119;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 84119;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 84119;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -220,25 +262,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 92542;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 92542;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
-
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 92542;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -252,24 +311,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 84774;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 84774;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 84774;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -283,24 +360,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 83833;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 83833;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 83833;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -314,24 +409,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 89084;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 89084;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 89084;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -345,24 +458,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 110311;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 110311;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 110311;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -376,24 +507,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 108049;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 108049;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 108049;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -401,31 +550,48 @@ namespace decomp
                                         break;
                                 }
                                 break;
-
                             case "9":
                                 Console.WriteLine("Select the layer that is okay to remove:\n0. Vents\n1. Roof\n2. Underground\n");
                                 userOption3 = Console.ReadLine();
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 112807;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 112807;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 112807;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -441,24 +607,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 115734;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 115734;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 115734;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -473,24 +657,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 142422;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 142422;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 142422;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -504,24 +706,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 134501;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 134501;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 134501;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -535,24 +755,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 142829;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 142829;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 142829;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -566,24 +804,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 109893;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 109893;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 109893;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -597,24 +853,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 88100;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 88100;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 88100;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -628,24 +902,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 103756;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 103756;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 103756;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -659,24 +951,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 80414;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 80414;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 80414;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -691,15 +1001,13 @@ namespace decomp
                         }
                         break;
                     case "5":
-                        Console.Write("\n\nEnter the file location: ");
+                        Console.Write("\nEnter the file location: ");
                         filePath = Console.ReadLine();
-                        if (File.Exists(filePath))
-                        {
-                            return;
-                        }
-                        else
+                        if (!System.IO.File.Exists(filePath))
                         {
                             Console.WriteLine("\nFile not found or invalid path.");
+                            Console.ReadLine();
+                            return;
                         }
                         lines = File.ReadAllLines(filePath);
                         for (int i = 0; i < lines.Length; i++)
@@ -710,45 +1018,62 @@ namespace decomp
                                 break;
                             }
                         }
-                        Console.Write("\n\nEnter the file location to save the .proj file: ");
+                        Console.Write("\nEnter the file location to save the .proj file: ");
                         saveFilePath = Console.ReadLine();
                         File.WriteAllLines(saveFilePath, lines);
-                        Console.WriteLine("\nData motified succesfully!");
+                        Console.WriteLine("\nData modified successfully!");
                         Console.ReadLine();
                         break;
                     case "6":
                         Console.Clear();
-                        Console.Write("What map do you want this to be in place of?\n0. Tutorial\n1. Center Perks\n2. Stalag Flucht\n3. Shankton State Pen\n4. Jungle Compound\n5. San Pancho\n6. HMP Irongate" +
+                        Console.WriteLine("What map do you want this to be in place of?\n0. Tutorial\n1. Center Perks\n2. Stalag Flucht\n3. Shankton State Pen\n4. Jungle Compound\n5. San Pancho\n6. HMP Irongate" +
                             "\n7. Jingle Cells\n8. Banned Camp\n9. London Tower\n10. Paris Central Pen\n11. Santa's Sweatshop\n12. Duct Tapes are Forever\n13. Escape Team\n14. Alcatraz\n15. Fhurst Peak Correctional" +
                             "\n16. Camp Epsilon\n17. Fort Bamford");
                         userOption2 = Console.ReadLine();
                         switch (userOption2)
                         {
                             case "0":
-                                Console.WriteLine("Select the layer that is okay to remove:\n0. Vents\n1. Roof\n2. Underground\n");
+                                Console.WriteLine("\nSelect the layer that is okay to remove:\n0. Vents\n1. Roof\n2. Underground");
                                 userOption3 = Console.ReadLine();
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 87009;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
-
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 87009;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 87009;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -762,24 +1087,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 87612;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 87612;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 87612;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -793,24 +1136,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 84119;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 84119;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 84119;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -824,25 +1185,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 92542;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 92542;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
-
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 92542;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -856,24 +1234,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 84774;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 84774;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 84774;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -887,24 +1283,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 83833;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 83833;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 83833;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -918,24 +1332,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 89084;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 89084;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 89084;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -949,24 +1381,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 110311;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 110311;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 110311;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -980,24 +1430,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 108049;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 108049;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 108049;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -1005,31 +1473,48 @@ namespace decomp
                                         break;
                                 }
                                 break;
-
                             case "9":
                                 Console.WriteLine("Select the layer that is okay to remove:\n0. Vents\n1. Roof\n2. Underground\n");
                                 userOption3 = Console.ReadLine();
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 112807;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 112807;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 112807;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -1045,24 +1530,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 115734;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 115734;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 115734;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -1077,24 +1580,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 142422;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 142422;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 142422;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -1108,24 +1629,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 134501;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 134501;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 134501;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -1139,24 +1678,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 142829;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 142829;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 142829;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -1170,24 +1727,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 109893;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 109893;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 109893;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -1201,24 +1776,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 88100;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 88100;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 88100;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -1232,24 +1825,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 103756;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 103756;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 103756;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -1263,24 +1874,42 @@ namespace decomp
                                 switch (userOption3)
                                 {
                                     case "0":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 80414;
                                         string tempFilePath1 = ModifyFileVents(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath1);
                                         Console.ReadLine();
                                         break;
                                     case "1":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 80414;
                                         string tempFilePath2 = ModifyFileRoof(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath2);
                                         Console.ReadLine();
                                         break;
                                     case "2":
-                                        Console.WriteLine("\nEnter the file location: ");
+                                        Console.Write("\nEnter the file location: ");
                                         filePath = Console.ReadLine();
+                                        if (!System.IO.File.Exists(filePath))
+                                        {
+                                            Console.WriteLine("\nFile not found or invalid path.");
+                                            Console.ReadLine();
+                                            return;
+                                        }
                                         sizeInitial = 80414;
                                         string tempFilePath3 = ModifyFileUnderground(filePath, sizeInitial);
                                         EncryptAndSaveFile(tempFilePath3);
@@ -1295,23 +1924,19 @@ namespace decomp
                         }
                         break;
                     case "7":
-                        Console.WriteLine("\nEnter the file location: ");
+                        Console.Write("\nEnter the file location: ");
                         filePath = Console.ReadLine();
-                        if (System.IO.File.Exists(filePath))
-                        {
-                            return;
-                        }
-                        else
+                        if (!System.IO.File.Exists(filePath))
                         {
                             Console.WriteLine("\nFile not found or invalid path.");
                             Console.ReadLine();
+                            return;
                         }
-                        Console.WriteLine("Selected file: " + filePath);
                         fileBytes = System.IO.File.ReadAllBytes(filePath);
                         decryptionBlowfish = new BlowfishCompat(key);
                         decryptedData = decryptionBlowfish.Decrypt(fileBytes);                       
                         decryptedString = Encoding.ASCII.GetString(decryptedData);
-                        Console.Write("\n\nEnter the file location to save the .proj file: ");
+                        Console.Write("\nEnter the file location to save the .proj file: ");
                         string tempFilePath = Console.ReadLine();
                         System.IO.File.WriteAllText(tempFilePath, decryptedString);                 
                         lines = File.ReadAllLines(tempFilePath);
@@ -1325,41 +1950,37 @@ namespace decomp
                             }
                         }
                         System.IO.File.WriteAllLines(tempFilePath, lines);
-                        Console.WriteLine("Data modified succesfully!");
+                        Console.WriteLine("\nData modified successfully!");
                         Console.ReadLine();
                         break;
                     case "8":
-                        Console.WriteLine("\nEnter the file location: ");
+                        Console.Write("\nEnter the file location: ");
                         filePath = Console.ReadLine();
-                        if (System.IO.File.Exists(filePath))
-                        {
-                            return;
-                        }
-                        else
+                        if (!System.IO.File.Exists(filePath))
                         {
                             Console.WriteLine("\nFile not found or invalid path.");
                             Console.ReadLine();
-                        }                     
+                            return;
+                        }
                         fileBytes = System.IO.File.ReadAllBytes(filePath);
                         decryptionBlowfish = new BlowfishCompat(key);
                         decryptedData = decryptionBlowfish.Decrypt(fileBytes);
                         decryptedString = Encoding.ASCII.GetString(decryptedData);
-                        Console.Write("\n\nEnter the file location to save the .cmap file: ");
+                        Console.Write("\nEnter the file location to save the .cmap file: ");
                         tempFilePath = Console.ReadLine();                                             
                         System.IO.File.WriteAllText(tempFilePath, decryptedString);                       
                         lines = File.ReadAllLines(tempFilePath);
                         for (int i = 0; i < lines.Length; i++)
                         {
                             if (lines[i].Contains("[Info]"))
-                            {
-                                Console.WriteLine($"Found line containing '[Info]' at index {i}");
+                            {                                
                                 string[] newLines = { "Custom=2", "Rdy=1" };
                                 lines = lines.Take(i + 1).Concat(newLines).Concat(lines.Skip(i + 1)).ToArray();
                                 break;
                             }
                         } 
                         System.IO.File.WriteAllLines(tempFilePath, lines);
-                        Console.WriteLine("\nData modified succesfully");
+                        Console.WriteLine("\nData modified successfully!");
                         Console.ReadLine();
                         break;
                     case "9":
@@ -1387,8 +2008,8 @@ namespace decomp
                     int difference = sizeInitial - currentSize;
                     if (!string.IsNullOrEmpty(introLine))
                         lines[Array.IndexOf(lines, introLine)] += new string('n', Math.Max(0, difference));
-                    Console.WriteLine("Enter the file location to save the .map file: ");
-                    string tempFilePath = Console.ReadLine();                     
+                    Console.Write("\nEnter the file location to save the .map file: ");
+                    string tempFilePath = Console.ReadLine();
                     File.WriteAllLines(tempFilePath, lines, Encoding.UTF8);
                     return tempFilePath;
                 }
@@ -1406,7 +2027,8 @@ namespace decomp
                     int difference = sizeInitial - currentSize;
                     if (!string.IsNullOrEmpty(introLine))
                         lines[Array.IndexOf(lines, introLine)] += new string('n', Math.Max(0, difference));
-                    string tempFilePath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+                    Console.Write("\nEnter the file location to save the .map file: ");
+                    string tempFilePath = Console.ReadLine();
                     File.WriteAllLines(tempFilePath, lines, Encoding.UTF8);
                     return tempFilePath;
                 }
@@ -1424,7 +2046,8 @@ namespace decomp
                     int difference = sizeInitial - currentSize;
                     if (!string.IsNullOrEmpty(introLine))
                         lines[Array.IndexOf(lines, introLine)] += new string('n', Math.Max(0, difference));
-                    string tempFilePath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+                    Console.Write("\nEnter the file location to save the .map file: ");
+                    string tempFilePath = Console.ReadLine();
                     File.WriteAllLines(tempFilePath, lines, Encoding.UTF8);
                     return tempFilePath;
                 }
@@ -1440,8 +2063,7 @@ namespace decomp
                     byte[] encryptedData = encryptionBlowfish.Encrypt(inputBytes);            
                     string saveFilePath = tempFilePath;
                     File.WriteAllBytes(saveFilePath, encryptedData);
-                    Console.WriteLine("Data motified successfully!");
-                    Console.ReadLine();
+                    Console.WriteLine("\nData modified successfully!");                   
                 }
             }
         }
