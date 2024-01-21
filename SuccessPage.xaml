@@ -1,0 +1,46 @@
+﻿<Page x:Class="TEUD_GUI_Version.SuccessPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TEUD_GUI_Version"
+      mc:Ignorable="d" 
+      Height="450" Width="450"
+      Title="SuccessPage" 
+      HorizontalAlignment="Center" 
+      VerticalAlignment="Center" 
+      Background="White">
+    <Grid Background="White" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="175"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Label
+            FontWeight="Bold"
+            FontSize="20"
+            Grid.Row="1"
+            BorderThickness="5"
+            BorderBrush="Black"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+        >The Escapists Ultimate Decompiler</Label>
+        <Label
+            Grid.Row="3"
+            BorderThickness="5"
+            BorderBrush="Black"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            FontWeight="Bold"
+            FontSize="16"
+        >Successfully Modified File!</Label>
+        <Button
+            x:Name="BackButton"
+            Grid.Row="5"
+            Click="BackClick"
+        >Back</Button>
+    </Grid>
+</Page>

@@ -25,7 +25,7 @@ namespace decomp
         {
             randomSource = new RNGCryptoServiceProvider();
             SetupKey(HexToByte(hexKey));
-        }       
+        }
         public BlowFish(byte[] cipherKey)
         {
             randomSource = new RNGCryptoServiceProvider();
@@ -38,28 +38,28 @@ namespace decomp
             if (!IVSet)
                 SetRandomIV();
             return ByteToHex(InitVector) + ByteToHex(Encrypt_CBC(Encoding.ASCII.GetBytes(pt)));
-        }     
+        }
         public string Decrypt_CBC(string ct)
         {
             IV = HexToByte(ct.Substring(0, 16));
             return Encoding.ASCII.GetString(Decrypt_CBC(HexToByte(ct.Substring(16)))).Replace("\0", "");
-        }      
+        }
         public byte[] Decrypt_CBC(byte[] ct)
         {
             return Crypt_CBC(ct, true);
-        }       
+        }
         public byte[] Encrypt_CBC(byte[] pt)
         {
             return Crypt_CBC(pt, false);
-        }       
+        }
         public string Encrypt_ECB(string pt)
         {
             return ByteToHex(Encrypt_ECB(Encoding.ASCII.GetBytes(pt)));
-        }       
+        }
         public string Decrypt_ECB(string ct)
         {
             return Encoding.ASCII.GetString(Decrypt_ECB(HexToByte(ct))).Replace("\0", "");
-        }        
+        }
         public byte[] Encrypt_ECB(byte[] pt)
         {
             return Crypt_ECB(pt, false);
@@ -67,18 +67,18 @@ namespace decomp
         public byte[] Decrypt_ECB(byte[] ct)
         {
             return Crypt_ECB(ct, true);
-        }       
+        }
         public string Encrypt_CTR(string pt)
         {
             if (!IVSet)
                 SetRandomIV();
             return ByteToHex(InitVector) + ByteToHex(Crypt_CTR(Encoding.ASCII.GetBytes(pt), 2));
-        }       
+        }
         public string Decrypt_CTR(string ct)
         {
             IV = HexToByte(ct.Substring(0, 16));
             return Encoding.ASCII.GetString(Crypt_CTR(HexToByte(ct.Substring(16)), 2)).Replace("\0", "");
-        }       
+        }
         public byte[] IV
         {
             get { return InitVector; }
@@ -99,7 +99,7 @@ namespace decomp
         {
             get { return nonStandardMethod; }
             set { nonStandardMethod = value; }
-        }      
+        }
         public byte[] SetRandomIV()
         {
             InitVector = new byte[8];
@@ -161,7 +161,7 @@ namespace decomp
                 bf_s3[i] = xl_par;
                 bf_s3[i + 1] = xr_par;
             }
-        }       
+        }
         private byte[] Crypt_ECB(byte[] text, bool decrypt)
         {
             int paddedLen = (text.Length % 8 == 0 ? text.Length : text.Length + 8 - (text.Length % 8));
@@ -207,7 +207,7 @@ namespace decomp
                 Buffer.BlockCopy(block, 0, plainText, i, 8);
             }
             return plainText;
-        }       
+        }
         private byte[] Crypt_CBC(byte[] text, bool decrypt)
         {
             if (!IVSet)
@@ -245,14 +245,14 @@ namespace decomp
                 }
             }
             return plainText;
-        }      
+        }
         private void XorBlock(ref byte[] block, byte[] iv)
         {
             for (int i = 0; i < block.Length; i++)
             {
                 block[i] ^= iv[i];
             }
-        }        
+        }
         private void BlockEncrypt(ref byte[] block)
         {
             SetBlock(block);
@@ -264,7 +264,7 @@ namespace decomp
             SetBlock(block);
             decipher();
             GetBlock(ref block);
-        }       
+        }
         private void SetBlock(byte[] block)
         {
             byte[] block1 = new byte[4];
@@ -283,7 +283,7 @@ namespace decomp
                 xl_par = BitConverter.ToUInt32(block1, 0);
                 xr_par = BitConverter.ToUInt32(block2, 0);
             }
-        }      
+        }
         private void GetBlock(ref byte[] block)
         {
             byte[] block1 = new byte[4];
@@ -302,7 +302,7 @@ namespace decomp
             }
             Buffer.BlockCopy(block1, 0, block, 0, 4);
             Buffer.BlockCopy(block2, 0, block, 4, 4);
-        }       
+        }
         private void encipher()
         {
             xl_par ^= bf_P[0];
@@ -315,7 +315,7 @@ namespace decomp
             uint swap = xl_par;
             xl_par = xr_par;
             xr_par = swap;
-        }       
+        }
         private void decipher()
         {
             xl_par ^= bf_P[17];
@@ -328,7 +328,7 @@ namespace decomp
             uint swap = xl_par;
             xl_par = xr_par;
             xr_par = swap;
-        }       
+        }
         private uint round(uint a, uint b, uint n)
         {
             uint x1 = (bf_s0[wordByte0(b)] + bf_s1[wordByte1(b)]) ^ bf_s2[wordByte2(b)];
