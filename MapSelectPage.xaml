@@ -200,21 +200,21 @@
             GroupName="LayerDelete"
             IsChecked="True"
             Grid.Column="2"
-            Grid.Row="16"
+            Grid.Row="15"
             Checked="LayerButtonChecked"
         >Vents</RadioButton>
         <RadioButton
             x:Name="Roof"
             GroupName="LayerDelete"
             Grid.Column="2"
-            Grid.Row="17"
+            Grid.Row="16"
             Checked="LayerButtonChecked"
         >Roof</RadioButton>
         <RadioButton
             x:Name="Underground"
             GroupName="LayerDelete"
             Grid.Column="2"
-            Grid.Row="18"
+            Grid.Row="17"
             Checked="LayerButtonChecked"
         >Underground</RadioButton>
         <Button
@@ -224,5 +224,12 @@
             Width="100"
             Click="NextClick"
         >Next</Button>
+        <Button
+            x:Name="BackButton"
+            Grid.Column="2"
+            Grid.Row="18"
+            Width="100"
+            Click="BackClick"
+        >Back</Button>
     </Grid>
 </Page>

@@ -41,7 +41,11 @@ namespace TEUD_GUI_Version
                 layer = radioButton.Name;
             }
         }
-        private void NextClick(object sender, RoutedEventArgs e)
+        private void BackClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MainPage());
+        }
+            private void NextClick(object sender, RoutedEventArgs e)
         {
             if(map == "tutorial")
             {
